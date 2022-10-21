@@ -1,0 +1,6 @@
+.evn
+test.py
+DB.py
+venv/
+.idea/
+__pycache__
