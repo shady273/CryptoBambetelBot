@@ -288,6 +288,22 @@ def erc_20(message):
 def balance_erc20(message):
     try:
         bot.send_message(message.from_user.id, etherscan.balance_erc20(message.text))
+        result = etherscan.get_erc721(message.text)
+        dict_nft = result[1]
+        print(dict_nft)
+        if len(dict_nft) > 0:
+            bot.send_message(message.from_user.id, '⬇️ NFT', reply_markup=result[0])
+        else:
+            pass
+
+        @bot.callback_query_handler(func=lambda call: call.data in result[1])
+        def edit_image(call):
+            try:
+                bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id,
+                                      text=dict_nft[call.data],
+                                      reply_markup=result[0])
+            except telebot.apihelper.ApiTelegramException:
+                pass
     except Exception:
         bot.send_message(message.from_user.id, 'Ethereum адреса невірна')
 

@@ -12,7 +12,6 @@ def get_token_price(symbol):
     statuses.sort(key=len)
     coin_data = cg.get_coin_by_id(id=statuses[0])
     name = coin_data['name']
-    pprint.pprint(coin_data)
     try:
         price = "{:,.3f}".format(coin_data['market_data']['current_price']['usd'])
     except Exception:

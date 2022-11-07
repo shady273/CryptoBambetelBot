@@ -1,5 +1,8 @@
 from etherscan_shady import etherscan
+
+import keyboards
 from config import APY_KEY
+from config import provider_url
 
 
 def balance_erc20(address):
@@ -18,3 +21,8 @@ def balance_erc20(address):
         text += f'{value}\n'
     return text
 
+
+def get_erc721(address):
+    balance = etherscan.GetResult(address, APY_KEY)
+    erc721 = balance.get_erc721_balance(provider_url)
+    return keyboards.inline_erc721(erc721)

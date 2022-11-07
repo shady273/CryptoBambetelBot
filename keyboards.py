@@ -1,3 +1,5 @@
+import pprint
+
 import telebot
 from buttons import Buttons
 
@@ -74,3 +76,11 @@ def inline_add_transaction(coin_list):
                    in zip(coin_text, coin_data)]
     add_price.add(*button_list)
     return add_price
+
+
+def inline_erc721(nft_dict):
+    nft = telebot.types.InlineKeyboardMarkup()
+    coin_data = [coins for coins in nft_dict]
+    button_list = [telebot.types.InlineKeyboardButton(text=coindata, callback_data=coindata) for coindata in coin_data]
+    nft.add(*button_list)
+    return nft, nft_dict
